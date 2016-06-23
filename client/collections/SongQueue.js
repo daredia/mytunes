@@ -19,7 +19,19 @@ var SongQueue = Backbone.Collection.extend({
     }, this);
 
     this.on('dequeue', function(model) {
+      var firstSong = this.at(0);
       this.remove(model);
+      if (model.cid === firstSong.cid) {
+        if (this.length > 0) {
+          this.playFirst();  
+        } else {
+          // set the current song to nothing
+          // current song is a property of the app model
+          // can trigger an event to stop player view
+          // ended also needs to do this
+          this.trigger('empty', this);
+        }
+      }
     }, this);
   },
 

@@ -33,6 +33,15 @@ describe('SongQueueView', function() {
     });
     view.collection.pop();
     expect(view.render).to.have.been.called;
+    SongQueueView.prototype.render.restore();
+  });
+
+  it('removes SongQueueEntryViews for each dequeued song & rerenders the SongQueueView', function() {
+    sinon.spy(SongQueueView.prototype, 'render');
+    view = new SongQueueView({collection: fakeSongs});
+    // trigger dequeue
+    view.collection.at(0).dequeue();
+    expect(SongQueueView.prototype.render).to.have.been.called;
   });
 
 });
