@@ -1,3 +1,17 @@
+var songData = [
+  {
+    url: 'https://s3-us-west-1.amazonaws.com/hr-mytunes/data/04+One+In+A+Million.mp3',
+    title: 'One In A Million',
+    artist: 'Aaliyah',
+  },
+  {
+    url: 'https://s3-us-west-1.amazonaws.com/hr-mytunes/data/03+Age+Ain%27t+Nothing+But+A+Number.mp3',
+    title: 'Age Ain\'t Nothing But A Number',
+    artist: 'Aaliyah',
+  }
+];
+
+
 // Songs.js - Defines a backbone collection class for songs.
 var Songs = Backbone.Collection.extend({
 
@@ -13,15 +27,9 @@ var Songs = Backbone.Collection.extend({
         type: 'GET',
         contentType: 'application/json',
         success: function (data) {
-          songsCollection.add(data.results);
+          // songsCollection.add(data.results);
+          songsCollection.add(songData);
           console.log('myTunes: Songs Retrieved');
-          var app = new AppModel({library: songsCollection});
-
-          // build a view for the top level of the whole app
-          var appView = new AppView({model: app});
-
-          // put the view onto the screen
-          $('body').append(appView.render());
         },
         error: function (data) {
           // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
