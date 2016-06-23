@@ -17,7 +17,14 @@ var AppModel = Backbone.Model.extend({
       this.set('currentSong', song);
     }, this);
     params.library.on('enqueue', function(song) {
-      this.get('songQueue').add(song);
+      var currSongQueue = this.get('songQueue');
+      if (currSongQueue.length === 0) {
+        this.set('currentSong', song);
+      }
+      currSongQueue.add(song);
+      console.log(currSongQueue.length);
+      // new logic. if the song queue is empty, change current song
+      // hence, the listener for current song will fire
     }, this);
   }
 
