@@ -1,11 +1,12 @@
 describe('Songs', function() {
-  xdescribe('when fetching song data from Parse', function() {
+  describe('when fetching song data from Parse', function() {
     var songs, fakeSongData, fakeResponse, xhr, requests;
 
     beforeEach(function() {
       requests = [];
       xhr = sinon.useFakeXMLHttpRequest();
       xhr.onCreate = function(request) {
+        console.log(request);
         requests.push(request);
       };
 
