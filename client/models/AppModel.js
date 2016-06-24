@@ -34,3 +34,8 @@ var AppModel = Backbone.Model.extend({
   }
 
 });
+
+
+// add a class to the songqueue title
+// add a jquery listener (for clicking on that class) inside the songqueueview
+// get that songqueue and change AppModel.songQueue to point to that clicked songqueue
