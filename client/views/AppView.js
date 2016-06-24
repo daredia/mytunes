@@ -11,10 +11,22 @@ var AppView = Backbone.View.extend({
     this.model.on('change:currentSong', function(model) {
       this.playerView.setSong(model.get('currentSong'));
     }, this);
+
+    this.model.on('create', function() {
+      var playlist = new SongQueueView({collection: this.model.get('songQueue')});
+      this.$el.append(playlist.$el);
+    }, this);
+
+    var that = this;
+    $('body').on('click', '.create-playlist', function() {
+      that.model.trigger('createPlaylist', this);
+    });
   },
  
   render: function() {
+    var $createPlaylistButton = $('<button class="create-playlist">Create Playlist</button>');
     return this.$el.html([
+      $createPlaylistButton,
       this.playerView.$el,
       this.libraryView.$el,
       this.songQueueView.$el

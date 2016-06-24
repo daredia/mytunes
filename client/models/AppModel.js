@@ -26,6 +26,11 @@ var AppModel = Backbone.Model.extend({
     this.get('songQueue').on('empty', function() {
       this.set('currentSong', new SongModel());
     }, this);
+
+    this.on('createPlaylist', function() {
+      this.set('songQueue', new SongQueue());
+      this.trigger('create', this);
+    }, this);
   }
 
 });
