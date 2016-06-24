@@ -11,10 +11,12 @@ var SongQueue = Backbone.Collection.extend({
       }
     }, this);
 
-    this.on('ended', function() {
+    this.on('ended', function(model) {
       this.remove(this.at(0));
       if (this.length > 0) {
         this.playFirst();
+      } else {
+        this.stopTrack(model);
       }
     }, this);
 
@@ -25,11 +27,7 @@ var SongQueue = Backbone.Collection.extend({
         if (this.length > 0) {
           this.playFirst();  
         } else {
-          // set the current song to nothing
-          // current song is a property of the app model
-          // can trigger an event to stop player view
-          // ended also needs to do this
-          this.trigger('empty', this);
+          this.stopTrack(model);
         }
       }
     }, this);
@@ -37,6 +35,10 @@ var SongQueue = Backbone.Collection.extend({
 
   playFirst: function() {
     this.at(0).play();
+  },
+
+  stopTrack: function(song) {
+    song.stop();
   }
 
 });

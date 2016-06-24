@@ -23,7 +23,7 @@ var AppModel = Backbone.Model.extend({
       console.log(currSongQueue.length);
     }, this);
 
-    this.get('songQueue').on('empty', function() {
+    params.library.on('stop', function(song) {
       this.set('currentSong', new SongModel());
     }, this);
 
